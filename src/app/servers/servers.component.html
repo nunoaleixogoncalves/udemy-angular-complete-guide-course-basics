@@ -1,0 +1,53 @@
+<p>servers works!</p>
+<!-- <input type="text" class="form-control" (input)="onUpdateServerName($event)"> -->
+<input type="text" class="form-control" [(ngModel)]="serverName">
+<p [innerText]="serverName"></p>
+<button class="btn btn-primary" [disabled]="!allowNewServer" (click)="onCreateServer()">Add Server</button>
+<p [innerText]="allowNewServer"></p>
+<!-- <p>{{allowNewServer}}</p> -->
+
+<p class="text-success" *ngIf="serverCreated; else serverNotCreated"> {{serverCreationStatus}}</p>
+<ng-template #serverNotCreated>
+    <p>{{serverCreationStatus}}</p>
+</ng-template>
+
+<app-server *ngFor="let server of servers">
+</app-server>
+
+<hr>
+
+<h5>Assignment 2: Practicing Databinding</h5>
+<input placeholder="Username" type="text" class="form-control" [(ngModel)]="username">
+<p>{{username}}</p>
+<button class="btn btn-primary" [disabled]="!username" (click)="username = ''">Reset username</button>
+
+<hr>
+
+<h5>Assignment 3: Practicing Directives</h5>
+<button class="btn btn-primary" (click)="onShowSecret()">Display Details</button>
+<p *ngIf="showSecret">Secret paragraph = tuna</p>
+<br>
+<span *ngFor="let item of clicks; let i=index" [ngClass]="{'text-white': i>=4}"
+    [ngStyle]="{backgroundColor: i>=4 ? 'blue': 'none'}">{{item}}<br></span>
+
+
+<hr>
+Chapter 5:
+<div class="container">
+    <app-cockpit (serverCreated)="serverElements.push($event)"></app-cockpit>
+    <hr>
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="panel panel-default" *ngFor="let element of serverElements">
+                <app-server-chap5 [serverElement]="element" [name]="element.name">
+                    <p class="card-text" #contentParagraph>
+                        <strong *ngIf="element.type === 'server'" style="color: red">{{ element.content }}</strong>
+                        <em *ngIf="element.type === 'blueprint'">{{ element.content }}</em>
+                    </p>
+                </app-server-chap5>
+            </div>
+        </div>
+    </div>
+    <button class="btn btn-primary" (click)="serverElements = []">Destroy array</button>
+    <button class="btn btn-primary" (click)="serverElements[0].name='changes'">Change first Element</button>
+</div>

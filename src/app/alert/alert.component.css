@@ -1,0 +1,11 @@
+
+.success {
+    border: 1px darkgreen solid;
+    background-color: green;
+    padding: 10px;
+}
+.warning {
+    border: 1px darkorange solid;
+    background-color: orange;
+    padding: 10px;
+}
